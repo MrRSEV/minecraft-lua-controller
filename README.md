@@ -127,16 +127,6 @@ A full list of hardcoded/implementet commands can be found at each version under
 
 **ATTENTION: Some Commands could be different from Version to Version**
 
-## Repository Structure
-
-This repository is the **project root**.
-
-Release channels may be organized like this:
-
-    versions/beta/1-0-0
-    versions/1-0-1
-    versions/stable/1-0-2
-
 Platform-specific builds are created from the `mc-*` modules and compiled independently against the shared `common` module.
 
 ---
