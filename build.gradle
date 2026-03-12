@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "de.rsev.minecraft.forge"
-version = "1.0.0"
+version = "2.0.0-beta"
 
 ext {
     java_version = 17
@@ -13,12 +13,6 @@ ext {
 }
 
 allprojects {
-
-    repositories {
-        mavenCentral()
-        maven { url = "https://maven.minecraftforge.net" }
-    }
-
 }
 
 subprojects {
@@ -35,4 +29,20 @@ subprojects {
         options.encoding = 'UTF-8'
     }
 
+}
+
+def platformProjectPaths = providers.provider {
+    subprojects
+            .findAll { it.name.startsWith("mc-") }
+            .collect { "${it.path}:build" }
+}
+
+tasks.register("buildPlatforms") {
+    group = "build"
+    description = "Builds all platform modules under mc-*."
+    dependsOn(platformProjectPaths)
+}
+
+tasks.named("build") {
+    dependsOn(platformProjectPaths)
 }

@@ -1,9 +1,9 @@
 # de.rsev.minecraft.forge.controller
 
-A modular **Minecraft Forge controller mod** providing a **runtime Lua VM environment** for dynamic scripting, command registration, and event handling.
+A modular **Minecraft Lua controller** providing a **runtime Lua VM environment** for dynamic scripting, command registration, and event handling across multiple server platforms.
 
 This repository acts as the **root repository** for the project.  
-Specific versions of the mod will be organized in **separate subdirectories**.
+The current beta release is **v2.0.0-beta**.
 
 The mod introduces a **Lua Runtime Compiler and VM management system** that allows Lua scripts to be compiled, executed, and dynamically reloaded during runtime. This enables advanced server-side automation such as quests, dynamic commands, event-driven logic, and custom gameplay systems.
 
@@ -46,8 +46,19 @@ Command VMs allow **dynamic registration of custom commands implemented in Lua**
 
 Example: (This Command is not included, it could be defined in a Lua Script at rsev_controller/lua/worlds/<worldname>/commands/HelpCommand.lua)
 
-    /rsev lua heal
-    /rsev lua heal <playername>
+    /lua heal
+    /lua heal <playername>
+
+---
+
+## Supported Platforms
+
+The project currently provides dedicated platform modules for:
+
+- Forge 1.20.1
+- Paper 1.20.1
+
+The Paper module can be used on **PaperMC**, **Bukkit**, and **Spigot-compatible** server setups.
 
 ---
 
@@ -93,19 +104,13 @@ This allows **rapid iteration without restarting the server**.
 
 The controller uses a **structured command namespace system**.
 
-Root namespace: 
-   
-    /rsev
+All controller and Lua-related commands are organized under:
 
+    /lua
 
-The root namespace contains only the help command:
-    
-    /rsev help
+The help command is available directly as:
 
-
-All Lua-related commands are organized under:
-
-    /rsev lua
+    /lua help
 
 
 This namespace provides tools for:
@@ -126,13 +131,13 @@ A full list of hardcoded/implementet commands can be found at each version under
 
 This repository is the **project root**.
 
-Future mod versions will be organized like this:
+Release channels may be organized like this:
 
     versions/beta/1-0-0
     versions/1-0-1
     versions/stable/1-0-2
 
-Each version directory will contain the full Forge mod source.
+Platform-specific builds are created from the `mc-*` modules and compiled independently against the shared `common` module.
 
 ---
 

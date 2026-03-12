@@ -1,0 +1,25 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="rsev_controller"
+version="${file.jarVersion}"
+displayName="RSEV Lua Controller"
+description='''
+Lua runtime controller mod
+'''
+
+[[dependencies.rsev_controller]]
+modId="forge"
+mandatory=true
+versionRange="[47,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.rsev_controller]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1]"
+ordering="NONE"
+side="BOTH"

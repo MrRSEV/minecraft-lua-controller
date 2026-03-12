@@ -2,32 +2,22 @@
 
 This document describes all commands available in the **Lua VM Controller namespace**.
 
-The command system uses a **structured namespace hierarchy**.
+As of **v2.0.0-beta**, all controller commands are available directly under the `/lua` namespace.
 
 ---
 
-# Root Namespace
+# Command Namespace
 
-    /rsev
+    /lua
 
-
-The root namespace only contains a help command.
+This namespace provides access to controller commands, Lua VM management, and runtime utilities.
 
 ### Help
 
-    /rsev help
+    /lua help
 
 
 Displays an overview of available controller commands.
-
----
-
-# Lua Namespace
-
-    /rsev lua
-
-
-This namespace provides access to **Lua VM management and runtime utilities**.
 
 ---
 
@@ -35,7 +25,7 @@ This namespace provides access to **Lua VM management and runtime utilities**.
 
 ### Reload Lua VMs
 
-    /rsev lua reload
+    /lua reload
 
 
 Reloads all dynamic Lua environments.
@@ -51,7 +41,7 @@ This allows scripts to be updated **without restarting the server**.
 
 # Generate Namespace
 
-    /rsev lua generate <command>
+    /lua generate <command>
 
 
 Commands used to generate runtime data or documentation.
@@ -60,7 +50,7 @@ Commands used to generate runtime data or documentation.
 
 ### Generate Lua API Documentation
 
-    /rsev lua generate documentation
+    /lua generate documentation
 
 
 Automatically generates a complete documentation of all Lua-accessible methods exposed by the **Java ↔ Lua bridge**.
@@ -76,7 +66,7 @@ The generated documentation can be used for:
 
 # List Namespace
     
-    /rsev lua list <command>
+    /lua list <command>
 
 
 Commands used to inspect the current Lua runtime environment.
@@ -85,7 +75,7 @@ Commands used to inspect the current Lua runtime environment.
 
 ### List Commands
 
-    /rsev lua list commands
+    /lua list commands
 
 
 Lists all currently registered Lua commands.
@@ -94,7 +84,7 @@ Lists all currently registered Lua commands.
 
 ### List Events
 
-   /rsev lua list events
+   /lua list events
 
  
 Displays all available event bindings.
@@ -103,7 +93,7 @@ Displays all available event bindings.
 
 ### List Lua Files
 
-    /rsev lua list files
+    /lua list files
 
 
 Lists all detected Lua script files.
@@ -112,7 +102,7 @@ Lists all detected Lua script files.
 
 ### List Runtime Tasks
 
-    /rsev lua list runtimetasks
+    /lua list runtimetasks
 
 
 Displays currently running runtime tasks.
@@ -121,7 +111,7 @@ Displays currently running runtime tasks.
 
 ### List Scheduler Tasks
 
-    /rsev lua list scheduler
+    /lua list scheduler
 
 
 Lists all scheduled Lua tasks.
@@ -130,7 +120,7 @@ Lists all scheduled Lua tasks.
 
 ### List Timers
 
-    /rsev lua list timers
+    /lua list timers
 
 
 Shows active Lua timers.
@@ -139,7 +129,7 @@ Shows active Lua timers.
 
 ### List VMs
 
-    /rsev lua list vms
+    /lua list vms
 
 
 Displays all currently running Lua VM instances.
@@ -150,12 +140,12 @@ Displays all currently running Lua VM instances.
 
 Lua command VMs allow dynamic command registration under the namespace:
 
-    /rsev lua <command>
+    /lua <command>
 
 Example (not included, you can create it by yorself at rsev_controller/lua/worlds/<worldname>/commands/HealCommand.lua):
     
-    /rsev lua heal
-    /rsev lua heal <player>
+    /lua heal
+    /lua heal <player>
 
 Commands can be implemented entirely in Lua scripts and are **reloadable at runtime**.
 
