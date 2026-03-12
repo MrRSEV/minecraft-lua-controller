@@ -1,0 +1,140 @@
+plugins {
+    id 'net.minecraftforge.gradle' version '6.+'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+////////////////////////////////////////////////////////////
+// Minecraft / Forge
+////////////////////////////////////////////////////////////
+
+minecraft {
+
+    mappings channel: 'official', version: rootProject.ext.minecraft_version
+
+    runs {
+
+        client {
+
+            workingDirectory project.file('run')
+
+            mods {
+                rsev_controller {
+                    source sourceSets.main
+                    source project(":common").sourceSets.main
+                }
+            }
+
+        }
+
+        server {
+
+            workingDirectory project.file('run')
+
+            mods {
+                rsev_controller {
+                    source sourceSets.main
+                    source project(":common").sourceSets.main
+                }
+            }
+
+        }
+
+    }
+}
+
+////////////////////////////////////////////////////////////
+// Dependencies
+////////////////////////////////////////////////////////////
+
+dependencies {
+    
+    minecraft "net.minecraftforge:forge:${rootProject.ext.minecraft_version}-${rootProject.ext.forge_version}"
+    // Core module
+    implementation project(":common")
+    implementation 'org.luaj:luaj-jse:3.0.1'
+    implementation 'org.antlr:antlr4-runtime:4.13.1'
+
+}
+
+////////////////////////////////////////////////////////////
+// Encoding
+////////////////////////////////////////////////////////////
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+////////////////////////////////////////////////////////////
+// Resources
+////////////////////////////////////////////////////////////
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+////////////////////////////////////////////////////////////
+// Disable normal jar
+////////////////////////////////////////////////////////////
+
+jar {
+    enabled = false
+}
+
+////////////////////////////////////////////////////////////
+// Disable reobfJar (FG6 safe)
+////////////////////////////////////////////////////////////
+
+tasks.matching { it.name == "reobfJar" }.configureEach {
+    enabled = false
+}
+
+////////////////////////////////////////////////////////////
+// ShadowJar
+////////////////////////////////////////////////////////////
+
+shadowJar {
+
+    archiveBaseName.set(rootProject.name)
+    archiveClassifier.set("")
+    archiveVersion.set("")
+
+    archiveFileName.set(
+        "${rootProject.name}-forge-${rootProject.ext.dashed_forge}-ModVersion-${rootProject.version}.jar"
+    )
+
+    dependencies {
+
+        include(dependency('org.luaj:luaj-jse'))
+        include(dependency('org.tomlj:tomlj'))
+        include(dependency('org.json:json'))
+        include(dependency('org.yaml:snakeyaml'))
+        include(dependency('org.antlr:antlr4-runtime'))
+
+    }
+
+    relocate 'org.luaj', 'de.rsev.shadow.luaj'
+    relocate 'org.antlr', 'de.rsev.shadow.antlr'
+    relocate 'org.json', 'de.rsev.shadow.json'
+    relocate 'org.yaml.snakeyaml', 'de.rsev.shadow.snakeyaml'
+
+    exclude 'org/apache/maven/**'
+    exclude 'org/gradle/**'
+    exclude 'net/minecraftforge/**'
+}
+
+////////////////////////////////////////////////////////////
+// Reobfuscate ShadowJar
+////////////////////////////////////////////////////////////
+
+reobf {
+    shadowJar {}
+}
+
+////////////////////////////////////////////////////////////
+// Build Pipeline
+////////////////////////////////////////////////////////////
+
+tasks.build {
+    dependsOn shadowJar
+    dependsOn reobfShadowJar
+}

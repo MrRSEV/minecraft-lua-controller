@@ -1,0 +1,9 @@
+dependencies {
+
+    implementation 'org.luaj:luaj-jse:3.0.1'
+    implementation 'org.tomlj:tomlj:1.1.0'
+    implementation 'org.json:json:20240303'
+    implementation 'org.yaml:snakeyaml:2.2'
+    implementation 'org.antlr:antlr4-runtime:4.13.1'
+
+}

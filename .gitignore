@@ -1,0 +1,40 @@
+# Ignore everything by default
+*
+
+# Keep this file and the allowed root files
+!.gitignore
+!build.gradle
+!COMMANDS.md
+!gradle.properties
+!gradlew
+!gradlew.bat
+!LICENSE
+!README.md
+!settings.gradle
+
+# Allow project module directories
+!common/
+!gradle/
+!mc-*/
+
+# Common project noise to keep ignored
+.git/
+.gradle/
+.gradle-user-home/
+.idea/
+.vscode/
+local-maven-repo/
+Thumbs.db
+Desktop.ini
+
+# Exclude generated outputs inside allowed modules
+**/build/
+**/bin/
+**/run/
+**/logs/
+**/.gradle/
+**/out/
+**/*.iml
+**/*.ipr
+**/*.iws
+**/.DS_Store
