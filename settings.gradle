@@ -11,17 +11,25 @@ dependencyResolutionManagement {
     // WICHTIG: kein repositoriesMode, da ForgeGradle sonst Probleme macht
 
     repositories {
-        maven { url = "${rootDir}/local-maven-repo" }
         maven { url = "https://maven.minecraftforge.net" }
+        maven { url = "https://repo.papermc.io/repository/maven-public/" }
         mavenCentral()
+        maven { url = "${rootDir}/local-maven-repo" }
     }
 }
 
-rootProject.name = "RSEV_Controller"
+rootProject.name = "Minecraft_Lua_Controller"
 
 ////////////////////////////////////////////////////////////
 // Subprojects
 ////////////////////////////////////////////////////////////
 
 include("common")
-include("mc-1.20.1-forge")
+
+def platformModules = rootDir
+        .listFiles()
+        .findAll { it.isDirectory() && it.name.startsWith("mc-") }
+        .collect { it.name }
+        .sort()
+
+platformModules.each { include(it) }

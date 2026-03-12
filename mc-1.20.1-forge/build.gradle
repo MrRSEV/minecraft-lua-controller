@@ -18,7 +18,7 @@ minecraft {
             workingDirectory project.file('run')
 
             mods {
-                rsev_controller {
+                minecraft_lua_controller {
                     source sourceSets.main
                     source project(":common").sourceSets.main
                 }
@@ -31,7 +31,7 @@ minecraft {
             workingDirectory project.file('run')
 
             mods {
-                rsev_controller {
+                minecraft_lua_controller {
                     source sourceSets.main
                     source project(":common").sourceSets.main
                 }
@@ -70,6 +70,9 @@ tasks.withType(JavaCompile).configureEach {
 
 processResources {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    filesMatching("META-INF/mods.toml") {
+        expand(version: project.version)
+    }
 }
 
 ////////////////////////////////////////////////////////////
@@ -101,6 +104,8 @@ shadowJar {
     archiveFileName.set(
         "${rootProject.name}-forge-${rootProject.ext.dashed_forge}-ModVersion-${rootProject.version}.jar"
     )
+
+    from(project(":common").sourceSets.main.output)
 
     dependencies {
 

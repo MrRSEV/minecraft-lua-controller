@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+dependencies {
+    compileOnly "io.papermc.paper:paper-api:${rootProject.ext.minecraft_version}-R0.1-SNAPSHOT"
+    implementation project(":common")
+    implementation 'org.luaj:luaj-jse:3.0.1'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+processResources {
+    filesMatching("plugin.yml") {
+        expand(version: project.version)
+    }
+}
+
+jar {
+    enabled = false
+}
+
+shadowJar {
+    archiveBaseName.set(rootProject.name)
+    archiveClassifier.set("")
+    archiveVersion.set("")
+    archiveFileName.set("${rootProject.name}-paper-${rootProject.ext.minecraft_version}-ModVersion-${rootProject.version}.jar")
+}
+
+tasks.build {
+    dependsOn shadowJar
+}

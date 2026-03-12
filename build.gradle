@@ -1,5 +1,5 @@
 plugins {
-    id 'java'
+    id 'base'
 }
 
 group = "de.rsev.minecraft.forge"
@@ -13,6 +13,8 @@ ext {
 }
 
 allprojects {
+    group = rootProject.group
+    version = rootProject.version
 }
 
 subprojects {
@@ -37,12 +39,30 @@ def platformProjectPaths = providers.provider {
             .collect { "${it.path}:build" }
 }
 
+def platformProjects = providers.provider {
+    subprojects.findAll { it.name.startsWith("mc-") }
+}
+
 tasks.register("buildPlatforms") {
     group = "build"
     description = "Builds all platform modules under mc-*."
     dependsOn(platformProjectPaths)
 }
 
+tasks.register("collectPlatformArtifacts", Sync) {
+    group = "build"
+    description = "Collects all built platform jars into the root build/libs directory."
+    dependsOn(platformProjectPaths)
+    into(layout.buildDirectory.dir("libs"))
+
+    from(platformProjects.map { projects ->
+        projects.collect { project ->
+            project.layout.buildDirectory.dir("libs")
+        }
+    })
+}
+
 tasks.named("build") {
     dependsOn(platformProjectPaths)
+    dependsOn("collectPlatformArtifacts")
 }

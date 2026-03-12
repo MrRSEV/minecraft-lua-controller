@@ -44,7 +44,7 @@ Event VMs can be **reloaded at runtime without restarting the server**.
 
 Command VMs allow **dynamic registration of custom commands implemented in Lua**.
 
-Example: (This Command is not included, it could be defined in a Lua Script at rsev_controller/lua/worlds/<worldname>/commands/HelpCommand.lua)
+Example: (This command is not included, it could be defined in a Lua script at minecraft-lua-controller/lua/worlds/<worldname>/commands/HelpCommand.lua)
 
     /lua heal
     /lua heal <playername>
@@ -68,7 +68,7 @@ I've got implemented an own Logger for Stack Error throwings and easy debugging.
 
 If You execute system.print("YOUR MESSAGE HERE") in your Lua Script, 
 
-your Message will be show at rsev_controller/lua/log/latest.log
+your message will be written to minecraft-lua-controller/lua/log/latest.log
 
 ---
 

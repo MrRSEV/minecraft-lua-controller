@@ -18,6 +18,7 @@ import de.rsev.minecraft.forge.controller.io.LuaDirectoryManager;
 import de.rsev.minecraft.forge.controller.io.LuaPathResolver;
 import de.rsev.minecraft.forge.controller.lua.ForgeLuaPlatformContext;
 import de.rsev.minecraft.forge.controller.lua.ForgeLuaServerAdapter;
+import de.rsev.minecraft.forge.controller.lua.ForgeLuaAssetLoader;
 import de.rsev.minecraft.forge.controller.lua.LuaRuntime;
 
 import net.minecraft.server.MinecraftServer;
@@ -44,6 +45,7 @@ public class ServerLifecycleHandler {
             Path worldDir = LuaPathResolver.getWorldDir(worldName);
             ForgeLuaPlatformContext.bind(worldDir);
             LuaRuntime.setServerAdapter(new ForgeLuaServerAdapter(server));
+            ForgeLuaAssetLoader.syncGeneratedDataPacks(server);
 
             RSEVControllerMod.LOGGER.info("Server about to start -> Lua ready (world: {})", worldName);
         } catch (IOException e) {

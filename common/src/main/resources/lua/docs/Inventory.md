@@ -1,0 +1,4 @@
+# Inventory
+
+- addItem
+- removeItem

@@ -1,0 +1,7 @@
+name: RSEVController
+version: ${version}
+main: de.rsev.minecraft.forge.controller.paper.RSEVControllerPaperPlugin
+api-version: "1.20"
+authors:
+  - RSEV
+description: Lua runtime controller plugin for Paper

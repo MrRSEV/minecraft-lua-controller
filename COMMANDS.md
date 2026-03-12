@@ -142,7 +142,7 @@ Lua command VMs allow dynamic command registration under the namespace:
 
     /lua <command>
 
-Example (not included, you can create it by yorself at rsev_controller/lua/worlds/<worldname>/commands/HealCommand.lua):
+Example (not included, you can create it by yourself at minecraft-lua-controller/lua/worlds/<worldname>/commands/HealCommand.lua):
     
     /lua heal
     /lua heal <player>

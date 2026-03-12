@@ -14,8 +14,11 @@
 
 # Allow project module directories
 !common/
+!common/**
 !gradle/
+!gradle/**
 !mc-*/
+!mc-*/**
 
 # Common project noise to keep ignored
 .git/
@@ -38,3 +41,6 @@ Desktop.ini
 **/*.ipr
 **/*.iws
 **/.DS_Store
+
+# Keep local helper ignore files out of nested modules
+**/.gitignore
